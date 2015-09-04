@@ -79,4 +79,32 @@ describe('reload',function(){
 			});
 		});
 	});
+
+	it('should reload the data projecting the only the specified fields',function(done){
+		//getting the user instance 
+		User.findOne({_id: userId},{email:1},function(err,user){
+			assert.isNull(err);
+			assert.equal('alvise@poeticoding.com', user.email);
+
+			//updating using mongo update function
+			User.update({_id: userId},{$set: {email: 'alvise@poetic.io'}},function(err,updateInfo){
+				assert.isNull(err);
+				assert.equal(1,updateInfo.nModified);
+
+				//reloading
+				user.reload({email:1},function(err,reloadedUser){
+					assert.isNull(err);
+					assert.equal('alvise@poetic.io',reloadedUser.email);
+
+					//no firstName and lastName are loaded
+					assert.isUndefined(reloadedUser.firstName)
+					assert.isUndefined(reloadedUser.lastName);
+
+					done();
+				});
+
+			});
+		});
+
+	})
 })
