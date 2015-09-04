@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/alvises/mongoose-model-reload#readme",
   "devDependencies": {
+    "mocha": "^2.3.0",
     "mongoose": "^4.1.5"
   }
 }
