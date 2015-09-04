@@ -2,7 +2,7 @@
   "name": "mongoose-model-reload",
   "version": "0.0.1",
   "description": "The plugin adds the reload() method to the model",
-  "main": "index.js",
+  "main": "lib/reload.js",
   "directories": {
     "test": "test"
   },

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var assert = require('chai').assert;
 
-var mongooseReload = require('../index');
+var mongooseReload = require('../lib/reload.js');
 
 //defining the schema and registering the model
 var Schema = mongoose.Schema;
@@ -10,6 +10,10 @@ var UserSchema = new Schema({
 	firstName: String,
 	lastName: String
 });
+
+//loading mongoose reload plugin
+UserSchema.plugin(mongooseReload);
+
 mongoose.model('User',UserSchema);
 
 
@@ -67,8 +71,8 @@ describe('reload',function(){
 				user.reload(function(err,reloadedUser){
 					assert.isNull(err);
 					assert.equal('alvise@poetic.io',reloadedUser.email);
-					assert.equal(user._id,reloadedUser._id);
-					
+					assert.equal(user._id.toString(),reloadedUser._id.toString());
+
 					done();
 				});
 
